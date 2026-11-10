@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><title>#3 报表勾稽自检 · 方案讲解 — Amazon Quick Desktop 财务场景库</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>#3 报表勾稽自检 · 方案讲解 — AWS Quick Desktop 财务场景库</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden;font-family:'PingFang SC',-apple-system,'Microsoft YaHei',sans-serif;background:#0a0e1a;color:#1e2a44}
 .slide{position:absolute;inset:0;height:calc(100% - 54px);display:none;flex-direction:column;justify-content:center;padding:32px 56px;opacity:0;transition:opacity .5s}
@@ -43,7 +43,7 @@ td{padding:6px 8px;border-bottom:1px solid rgba(30,45,75,.05)}
 </style></head><body>
 <div class="slide active" data-i="0" style="justify-content:center;text-align:center">
   <div class="tag">⚠️ 数据及企业均为构造，非真实数据</div>
-  <div style="max-width:860px;margin:0 auto"><div style="font-size:24px;font-weight:800;letter-spacing:.8px;color:#4299e1;margin-bottom:14px">Amazon Quick Desktop</div>
+  <div style="max-width:860px;margin:0 auto"><div style="font-size:24px;font-weight:800;letter-spacing:.8px;color:#4299e1;margin-bottom:14px">AWS Quick Desktop</div>
   <h1>报表勾稽自检 <span class="hl">财报报出前的平衡闸门</span></h1>
   <p class="sub" style="margin:0 auto 20px">资产负债表 · 利润表 · 现金流量表 · 未分配利润滚动表，四表 17 项勾稽一次校验。核心判据：<b style="color:#2b7fd4">守恒 · 恒等式</b>。</p>
   <div class="kpi-row" style="max-width:760px;margin:0 auto">
@@ -79,7 +79,7 @@ td{padding:6px 8px;border-bottom:1px solid rgba(30,45,75,.05)}
 <rect x="20" y="264" width="150" height="64" rx="10" fill="rgba(30,45,75,0.05)" stroke="rgba(30,45,75,0.15)" stroke-width="1.2" filter="url(#ash)"/><text x="95.0" y="286" font-size="16" text-anchor="middle">💬</text><text x="95.0" y="304" font-size="12" font-weight="600" fill="#1e2a44" text-anchor="middle">一句话触发</text><text x="95.0" y="319" font-size="9.5" fill="#5f6b82" text-anchor="middle">“报表勾稽”</text>
 <rect x="20" y="340" width="150" height="64" rx="10" fill="rgba(30,45,75,0.05)" stroke="rgba(30,45,75,0.15)" stroke-width="1.2" filter="url(#ash)"/><text x="95.0" y="362" font-size="16" text-anchor="middle">⏰</text><text x="95.0" y="380" font-size="12" font-weight="600" fill="#1e2a44" text-anchor="middle">定时任务（使用者配置）</text><text x="95.0" y="395" font-size="9.5" fill="#5f6b82" text-anchor="middle">每期报表编制完成后</text>
 <rect x="240" y="16" width="480" height="412" rx="16" fill="url(#agc)" stroke="#2b7fd4" stroke-width="1.4" stroke-dasharray="6,3"/>
-<text x="480" y="40" font-size="14.5" font-weight="800" fill="#2b6fb0" text-anchor="middle">Amazon Quick</text>
+<text x="480" y="40" font-size="14.5" font-weight="800" fill="#2b6fb0" text-anchor="middle">AWS Quick</text>
 <rect x="262" y="52" width="436" height="54" rx="10" fill="rgba(30,45,75,0.04)" stroke="#8b5cf0" stroke-width="1.2" filter="url(#ash)"/><text x="280" y="75" font-size="16">🧭</text><text x="304" y="75" font-size="12.5" font-weight="700" fill="#8b5cf0">① 编排层 · 模型（指挥官）</text><text x="280" y="94" font-size="10.5" fill="#3f4c66">识别意图、编排工具；不接触原始财报数据，只看结果摘要</text>
 <rect x="262" y="116" width="436" height="54" rx="10" fill="rgba(30,45,75,0.04)" stroke="#2b7fd4" stroke-width="1.2" filter="url(#ash)"/><text x="280" y="139" font-size="16">📥</text><text x="304" y="139" font-size="12.5" font-weight="700" fill="#2b7fd4">② 数据接入层</text><text x="280" y="158" font-size="10.5" fill="#3f4c66">读取四表 CSV，按「分区」识别明细与小计；云上可走 OneDrive</text>
 <rect x="262" y="180" width="436" height="54" rx="10" fill="rgba(30,45,75,0.04)" stroke="#48bb78" stroke-width="1.2" filter="url(#ash)"/><text x="280" y="203" font-size="16">⚙️</text><text x="304" y="203" font-size="12.5" font-weight="700" fill="#48bb78">③ 确定性校验层 · 本地沙箱（操作员）</text><text x="280" y="222" font-size="10.5" fill="#3f4c66">report_tieout_check_v2.py：表内小计 12 项 · 会计恒等式 1 项 · 三表勾稽 4 项</text>
@@ -200,7 +200,7 @@ var TOTAL=11,cur=0,speaking=false,synth=window.speechSynthesis;
 var narr=[
 "本页介绍报表勾稽自检方案。财务报表对外报出前，自动校验资产负债表、利润表、现金流量表和未分配利润滚动表之间的全部勾稽关系，共 17 项，核心判据是守恒和恒等式。需要说明，以下数据及企业均为构造，非真实数据。",
 "先看端到端流程。输入是四张表，每一行带一个分区标记，说明它属于流动资产、非流动负债还是所有者权益。处理分五步：按分区读入四表；逐层核对表内小计；校验会计恒等式；校验三表之间的跨表勾稽；最后把每一条结果连同口径声明落盘。输出是逐项结果、报出结论和四种格式的报告。",
-"这是架构全景图。左侧是输入与触发：三大报表和未分配利润滚动表的 C S V，来自本机授权文件夹或财务系统导出，可以一句话触发，也可以由使用者在 Mission Control 配置定时任务，在每期报表编制完成后运行。中间是 Amazon Quick 内部的五层。第一层是编排层，模型充当指挥官，识别意图、选择 Skill、编排工具，但不接触原始财报数据，只看结果摘要。第二层是数据接入层，按分区识别明细和小计。第三层是确定性校验层，由本地沙箱里的脚本充当操作员，完成表内小计 12 项、会计恒等式 1 项、三表勾稽 4 项。第四层是证据层，逐条记录左值、右值、差异和口径声明。第五层是交付层，输出四种格式的报告。底部这条是 Skill 固化，上层契约和判据不会过时，下层脚本可以替换。右侧是输出端：网页、P D F、Excel 报告，可回溯的证据文件，由使用者自行分发的脱敏摘要，以及 Agent Files 归档。在全部本地模式下，数据、计算和明细结果都留在本机。",
+"这是架构全景图。左侧是输入与触发：三大报表和未分配利润滚动表的 C S V，来自本机授权文件夹或财务系统导出，可以一句话触发，也可以由使用者在 Mission Control 配置定时任务，在每期报表编制完成后运行。中间是 AWS Quick 内部的五层。第一层是编排层，模型充当指挥官，识别意图、选择 Skill、编排工具，但不接触原始财报数据，只看结果摘要。第二层是数据接入层，按分区识别明细和小计。第三层是确定性校验层，由本地沙箱里的脚本充当操作员，完成表内小计 12 项、会计恒等式 1 项、三表勾稽 4 项。第四层是证据层，逐条记录左值、右值、差异和口径声明。第五层是交付层，输出四种格式的报告。底部这条是 Skill 固化，上层契约和判据不会过时，下层脚本可以替换。右侧是输出端：网页、P D F、Excel 报告，可回溯的证据文件，由使用者自行分发的脱敏摘要，以及 Agent Files 归档。在全部本地模式下，数据、计算和明细结果都留在本机。",
 "这套方案是怎么实现的。用户一句报表勾稽即可触发。模型负责理解意图和编排工具，但它不接触原始财报数据，只看结果摘要；真正的校验在本地沙箱里由确定性脚本完成。脚本按分区动态求和，不把科目名写死，因此能处理完整的报表结构。整套流程已固化为可复用的 Skill，契约和判据是不会过时的上层，连接器和脚本是可替换的下层。",
 "来看样例数据。我们构造了一家虚构的示例集团，资产负债表 32 行（植错版多一行），带流动和非流动分区以及四层小计；利润表 14 行，分营业利润和利润总额两层；未分配利润滚动表包含提取盈余公积和分红。数据有两个版本：全平版按勾稽关系生成，理论上全部平衡；植错版改了 5 处，分别是资产总计少计 42.75 万、净利润多计 2.5 万、期末现金少计 10 万，把投资收益写成带千分位的 600,000，以及新增一行写成 1,500,000 的其他综合收益，后两处都无法解析。",
 "核心判据是三类勾稽。会计恒等式 1 项，资产必须等于负债加所有者权益；表内小计 12 项，每一层合计都必须等于明细之和；三表勾稽 4 项，比如现金流量表的期末现金必须等于资产负债表的货币资金。三类加起来一共 17 项。",

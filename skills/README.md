@@ -1,6 +1,6 @@
 # Skills
 
-Amazon Quick on desktop 技能包。每个技能是一个文件夹，包含 `SKILL.md`（指令集）与脚本等参考文件。
+AWS Quick on desktop 技能包。每个技能是一个文件夹，包含 `SKILL.md`（指令集）与脚本等参考文件。
 
 财务域 20 个技能，按五个流程域分组（总览见 [财务场景库](../finance-scenarios.html)）。
 

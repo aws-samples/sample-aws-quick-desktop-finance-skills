@@ -1,10 +1,10 @@
-# Threat Model: Amazon Quick Desktop Finance Skills (sample code)
+# Threat Model: AWS Quick Desktop Finance Skills (sample code)
 
 > This is sample code, for non-production usage. You should work with your security and legal teams to meet your organizational security, regulatory and compliance requirements before deployment.
 
 ## 中文摘要
 
-- **范围**：本仓库的 20 个财务核对 Skill 与共享依赖 `financial-local-safety`，运行在 Amazon Quick on desktop 中：云端模型负责调度，本机 Python 脚本做确定性计算，可选使用 OneDrive、Outlook 连接器（只读取数）与 MCP Server；讲解网页从 CDN 加载 ECharts 与 Font Awesome。
+- **范围**：本仓库的 20 个财务核对 Skill 与共享依赖 `financial-local-safety`，运行在 AWS Quick on desktop 中：云端模型负责调度，本机 Python 脚本做确定性计算，可选使用 OneDrive、Outlook 连接器（只读取数）与 MCP Server；讲解网页从 CDN 加载 ECharts 与 Font Awesome。
 - **资产**：财务数据、薪酬与个税中的员工个人信息、银行回单等凭证、结果文件与仪表盘。
 - **主要信任边界**：本机与云端模型之间（stdout 会回传云端）、连接器与外部内容（邮件、PDF、表格）、授权文件夹的索引设置、浏览器与 CDN。
 - **已在代码中实现的缓解**：数值严格解析、无法解析的行登记 `data_issues` 并判为不通过（fail-closed）；#2 回单来源默认拒绝（`trusted_senders`），并核对正文中的交易日期与金额，未提供正文的回单不作为凭证；#2 读取外部邮件与 PDF，因此不持有外发与建定时任务工具，分发改为本地草稿、由人工完成；#4、#10、#13、#14 的逐行、收款方、对账期间与重复键检查；#10 应付台账与总账勾稽、#5 关联方范围完备性、#13 全户出单、#19/#20/#11 重复键与重复余额行、#15 红字对应作废蓝字均计入 `all_ok`；Excel 公式注入防护；生成的 HTML 转义；CDN 资源加 SRI；全部 Skill 声明 `tools:` 白名单；#1、#2 默认本地模式。
@@ -15,20 +15,20 @@
 
 ## 1. Scope and system description
 
-This repository is a reference implementation of finance verification scenarios for Amazon Quick on desktop. It is not a service; nothing in it runs on its own. An adopter imports the Skill folders into Quick Desktop and runs them against their own data.
+This repository is a reference implementation of finance verification scenarios for AWS Quick on desktop. It is not a service; nothing in it runs on its own. An adopter imports the Skill folders into Quick Desktop and runs them against their own data.
 
 | Component | What it is | Where |
 |---|---|---|
 | Skills | 20 Skill folders, each with `SKILL.md` (instructions and `tools:` list for the agent), `scripts/`, `samples/` (clean set, planted-error set, `expected.json` golden answers) and `solution.html` (explainer page); plus the shared dependency Skill `financial-local-safety` | `skills/<slug>/`, `skills/financial-local-safety/SKILL.md` |
 | Deterministic scripts | Python scripts that compute all checks, amounts and verdicts. The 18 `*_v2.py` engines (#3–#20) use only the Python standard library; #1 and #2 use pandas (and openpyxl / XlsxWriter through pandas) | `skills/*/scripts/*.py` |
-| Cloud-hosted model | The Quick agent that reads `SKILL.md`, decides which tool to call next and reads script stdout. It runs in the cloud, so anything printed to stdout leaves the device | Amazon Quick (not in this repo) |
+| Cloud-hosted model | The Quick agent that reads `SKILL.md`, decides which tool to call next and reads script stdout. It runs in the cloud, so anything printed to stdout leaves the device | AWS Quick (not in this repo) |
 | Execution tools | `run_python_on_device` / `run_python_on_device_with_write` run on the user's device (outpost); `run_python` / `run_python_with_write` run in the cloud sandbox | Quick Desktop host |
 | Connectors | OneDrive (ERP workbook, read only; #1 and #2 cloud mode), Outlook (bank receipt e-mails, read only, #2). No Skill sends e-mail or chat messages, writes back to OneDrive or creates scheduled agents | Quick Desktop host; used by `skills/finance-monthly-reconciliation/SKILL.md`, `skills/treasury-weekly-report/SKILL.md` |
 | Authorised local folders | Folders the user grants in `Customize → Knowledge`. Turning on full-file-context indexing or knowledge-graph extraction for a folder uploads its files | Quick Desktop host |
 | MCP | The host supports local and remote MCP servers. This repo ships none; `skills/gl-voucher-compliance/SKILL.md` notes that an SAP source would need an MCP server, and `skills/README.md` lists MCP as an optional data source for several scenarios | Adopter-provided |
 | Explainer pages and dashboard template | Static HTML pages; `index.html`, `overview-guided.html` and `skills/treasury-weekly-report/solution.html` load ECharts 5.5.1 (jsDelivr) and Font Awesome 6.5.0 (cdnjs); `skills/finance-monthly-reconciliation/scripts/dashboard_template.html` loads `/vendor/echarts/echarts.min.js` and falls back to the same CDN | repo root, `skills/*/solution.html` |
 
-Out of scope: the Quick Desktop application itself, the Amazon Quick cloud service, connector authentication, and any MCP server an adopter adds.
+Out of scope: the Quick Desktop application itself, the AWS Quick cloud service, connector authentication, and any MCP server an adopter adds.
 
 ## 2. Assets
 

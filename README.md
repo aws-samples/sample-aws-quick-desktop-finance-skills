@@ -2,9 +2,9 @@
 >
 > **免责声明：** 本仓库为示例代码，仅供非生产用途。部署前，请与贵组织的安全团队和法务团队合作，确保满足组织的安全、监管与合规要求。
 
-# Amazon Quick Desktop Playbook
+# AWS Quick Desktop Playbook
 
-> 讲清 Amazon Quick on desktop 的能力底座、Skills 机制与企业接入方式，并在此之上沉淀可复用的业务场景方案与技能包。
+> 讲清 AWS Quick on desktop 的能力底座、Skills 机制与企业接入方式，并在此之上沉淀可复用的业务场景方案与技能包。
 
 **页面导航**
 
@@ -19,14 +19,14 @@
 
 ## 这是什么
 
-Amazon Quick on desktop 是 Amazon Quick 的原生桌面应用，对你的本地文件、已连接服务以及工作上下文有直接且持续的访问能力。
+AWS Quick on desktop 是 AWS Quick 的原生桌面应用，对你的本地文件、已连接服务以及工作上下文有直接且持续的访问能力。
 
 本 Playbook 分两层：
 
 1. **平台层** —— 桌面端本身：能碰到什么数据、有哪些工具、权限怎么管、Skills 怎么运作、企业怎么接入
 2. **场景层** —— 按业务域沉淀的落地方案，每个场景交付「讲解网页 + SKILL.md 技能包 + 脚本」三件套
 
-> Amazon Quick on desktop 已于 2026 年 9 月正式发布（GA），支持 macOS 与 Windows。对话、记忆与知识图谱保存在你的 Amazon Quick 账户中，Web、移动端与桌面端通用；桌面端在此之上加入授权文件夹、本地代码执行、浏览器自动化、本地 MCP 与编码 Agent 等本机能力。套餐与价格见[官方定价页](https://aws.amazon.com/quick/pricing/)，可用区域见[官方区域页](https://docs.aws.amazon.com/quick/latest/userguide/regions.html)，安装包见[官方下载页](https://aws.amazon.com/quick/download/)。
+> AWS Quick on desktop 已于 2026 年 9 月正式发布（GA），支持 macOS 与 Windows。对话、记忆与知识图谱保存在你的 AWS Quick 账户中，Web、移动端与桌面端通用；桌面端在此之上加入授权文件夹、本地代码执行、浏览器自动化、本地 MCP 与编码 Agent 等本机能力。套餐与价格见[官方定价页](https://aws.amazon.com/quick/pricing/)，可用区域见[官方区域页](https://docs.aws.amazon.com/quick/latest/userguide/regions.html)，安装包见[官方下载页](https://aws.amazon.com/quick/download/)。
 
 ---
 
@@ -50,7 +50,7 @@ Amazon Quick on desktop 是 Amazon Quick 的原生桌面应用，对你的本地
 | **Skills** | 以文件夹为单位、根目录含 `SKILL.md` 的指令集，可附脚本、模板等参考文件；在 `Customize → Skills` 管理，草稿经 Try it 测试后 Publish 生效；系统技能可开关、不可编辑 |
 | **定时任务与 Mission Control** | 定时任务（routine）在云端按计划运行，在 Mission Control 统一查看运行状态、待办输入、KPI 与历史产出 |
 | **委派编码 Agent** | 通过 ACP 协议把开发类任务派给 Kiro 或 Claude Code |
-| **知识图谱与记忆** | 自动抽取人、客户、项目、事件、行动项等实体及关系，保存在你的 Amazon Quick 账户中（按用户隔离）；在 `My context` 查看与管理 |
+| **知识图谱与记忆** | 自动抽取人、客户、项目、事件、行动项等实体及关系，保存在你的 AWS Quick 账户中（按用户隔离）；在 `My context` 查看与管理 |
 | **响应模式** | 对话与定时任务可选 Fast / Balanced / Smart，按复杂度取舍速度与质量 |
 
 内置系统工具：Web Search、File operations、Browser Automation、Image Generation、Code Execution、Engram Builder、Knowledge and memory、Agent management、Task management、Chat and notifications、Transcription、Explainability、File indexing and search、Working with your data。
@@ -270,7 +270,7 @@ cd sample-aws-quick-desktop-finance-skills
 
 企业版用户用 Quick Web 端已在使用的登录方式登录桌面端：默认不需要在 IdP 注册 OIDC 应用、不需要 Client ID 或 extension access，管理员一次性添加桌面连接器即可。登录时浏览器需已有 Quick Web 会话；一次登录最长 30 天。
 
-**官方配置文档：** [Amazon Quick 桌面端企业部署指引](https://docs.aws.amazon.com/quick/latest/userguide/desktop-enterprise-setup.html)
+**官方配置文档：** [AWS Quick 桌面端企业部署指引](https://docs.aws.amazon.com/quick/latest/userguide/desktop-enterprise-setup.html)
 
 开通四步：
 
@@ -292,13 +292,13 @@ HKLM\SOFTWARE\Policies\Amazon\Quick
   DisableSocialLogin (REG_DWORD) = 1
 ```
 
-> IdP 中的邮箱地址必须与 Amazon Quick 里该用户的邮箱**精确匹配**，否则映射失败。应用会自动沿用操作系统代理配置，无需单独设置。
+> IdP 中的邮箱地址必须与 AWS Quick 里该用户的邮箱**精确匹配**，否则映射失败。应用会自动沿用操作系统代理配置，无需单独设置。
 
 ---
 
 ## 相关资源
 
-- [Amazon Quick on desktop 用户指南](https://docs.aws.amazon.com/quick/latest/userguide/amazon-quick-desktop.html)
+- [AWS Quick on desktop 用户指南](https://docs.aws.amazon.com/quick/latest/userguide/amazon-quick-desktop.html)
 - [Skills](https://docs.aws.amazon.com/quick/latest/userguide/skills-desktop.html)
 - [Mission Control（定时任务 routine）](https://docs.aws.amazon.com/quick/latest/userguide/mission-control-desktop.html)
 - [企业部署指引](https://docs.aws.amazon.com/quick/latest/userguide/desktop-enterprise-setup.html)

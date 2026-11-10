@@ -1,7 +1,7 @@
 """
 月末财务对账引擎 v2.0
 =====================
-核心对账逻辑模块，可直接在 Amazon Quick Desktop 的 run_python 中执行。
+核心对账逻辑模块，可直接在 AWS Quick Desktop 的 run_python 中执行。
 
 数据流：
   OneDrive (ERP数据) + Outlook (银行回单邮件) → 对账 → 仪表盘 + Excel + 通知
@@ -608,7 +608,7 @@ def generate_email_body(stats: Dict, recon_result: Dict) -> str:
 </ol>
 
 <p style="color: #666; font-size: 12px;">
-  本报告由 Amazon Quick Desktop 财务对账助手自动生成 | {now}
+  本报告由 AWS Quick Desktop 财务对账助手自动生成 | {now}
 </p>
 </div>"""
     return html

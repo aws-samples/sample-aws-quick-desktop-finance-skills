@@ -198,7 +198,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}
         f'<div><div class="role">归档索引</div><div style="font-family:Menlo,monospace;font-weight:700;margin-top:14px">{m["index"]}</div></div>'
         '</div>'
         '<div class="foot"><span class="tag">⚠️ 以下数据及企业均为构造，非真实数据</span><br>'
-        f'报表勾稽核对底稿 · {m["entity"]} · 由 Amazon Quick 确定性脚本生成 · {ts}</div>'
+        f'报表勾稽核对底稿 · {m["entity"]} · 由 AWS Quick 确定性脚本生成 · {ts}</div>'
         '</div></body></html>'
     )
     if out_path:
