@@ -140,8 +140,8 @@ Amazon Quick on desktop 是 Amazon Quick 的原生桌面应用，对你的本地
 ## 导入技能
 
 ```bash
-git clone https://github.com/aws-samples/sample-Amazon-QuickDesktop-Finance-Skills.git
-cd sample-Amazon-QuickDesktop-Finance-Skills
+git clone https://github.com/aws-samples/sample-aws-quick-desktop-finance-skills.git
+cd sample-aws-quick-desktop-finance-skills
 ```
 
 在 Quick Desktop 中：
